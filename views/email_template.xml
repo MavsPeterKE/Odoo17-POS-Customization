@@ -1,0 +1,22 @@
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_pos_session_approval" model="mail.template">
+            <field name="name">POS Session Approval Notification</field>
+            <field name="email_from">{{ ctx.get('email_from') }}</field>
+            <field name="subject">POS Session Approval Request</field>
+            <field name="email_to">{{ ctx.get('receipt_mails') }}</field>
+            <field name="model_id" ref="model_pos_session"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div>
+                <p>Hello,</p>
+                <p>A POS session approval is requested for session: <b><t t-out="ctx.get('session_name')"/></b></p>
+
+                 <p>User <b><t t-out="ctx.get('pos_user')"/></b> has submitted to close with a cash shortage of <b><t t-out="ctx.get('cash_difference')"/></b></p>
+                <p>Please log in to ERP --> POS, review, and take necessary action.</p>
+                <p>Thank you!</p>
+            </div>
+            </field>
+        </record>
+    </data>
+</odoo>

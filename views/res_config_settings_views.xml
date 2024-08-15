@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.pos_approval</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='point_of_sale']" position="inside">
+                <block title="Close Session Cash Difference Approval">
+                    <setting help="Used to enable approval on POS when user closes session and counted cash is less than expected. If Disabled, approval will not be required">
+                        <field name="enable_approval"/>
+                    </setting>
+                    <setting help="Specify the approval Type" invisible="not enable_approval">
+                        <field name="approval_level" required="enable_approval"/>
+                    </setting>
+                    <setting help="Select who shall make the approvals" invisible="not enable_approval">
+                        <field name="approval_roles" widget="many2many_tags" required="enable_approval"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_pos_session_form_inherit" model="ir.ui.view">
+            <field name="name">pos.session.form.inherit</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_approve_session_close" data-hotkey="q"
+                        string="Approve" class="btn-primary" type="object"
+                            invisible="state not in ('pending_approval_1', 'pending_approval_2')" groups="custom_pos_approval.group_can_approve_pos_close_session"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_pos_order_tree_inherit" model="ir.ui.view">
+            <field name="name">pos.session.tree.inherit</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="badge" decoration-info="state in ('opening_control')" decoration-success="state in ('opened', 'closed')" decoration-warning="state == 'closing_control'"
+                           decoration-danger="state in ('pending_approval_1', 'pending_approval_2')" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

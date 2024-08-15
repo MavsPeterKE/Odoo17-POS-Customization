@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="custom_pos_approval.kanban_box_inherit" model="ir.ui.view">
+        <field name="name">custom.pos.config.kanban.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='col-6 o_kanban_primary_left']" position="replace">
+                 <div class="col-6 o_kanban_primary_left">
+                    <button t-if="record.current_session_state.raw_value != 'closing_control'" class="btn btn-primary" name="open_ui" type="object">
+                        <t t-if="record.current_session_state.raw_value === 'opened'">Continue Selling</t>
+                        <t t-elif="!record.current_session_id.raw_value &amp;&amp; !record.pos_session_username.value">New Session</t>
+                        <t t-elif="record.current_session_state.raw_value === 'opening_control'">Open Session</t>
+                        <t t-elif="record.current_session_state.raw_value === 'pending_approval_1'">Pending Close Session Approval</t>
+                        <t t-elif="record.current_session_state.raw_value === 'pending_approval_2'">Pending Close Session Approval</t>
+                    </button>
+                 </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
